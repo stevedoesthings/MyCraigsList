@@ -1,0 +1,62 @@
+  <script>
+  
+(function initializeGlobals() {
+  google.script.run.withSuccessHandler(updateCraigsListings).getFilterCraigsListings();
+})();
+
+  $(document).ready(function() {
+    $('select').material_select();
+    $('.collapsible').collapsible({
+      accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
+    });
+  });
+
+function updateCraigsListings(list){
+  var listLen = list.length;
+  var div = document.getElementById("Craigs_Listings");
+  var html = "";
+  var i = 0;
+  var row = 1;
+
+  for(i; i < listLen; i++){
+    var titleCheck = list[i][0].toString();
+    var bodyCheck = list[i][1].toString();
+    if( titleCheck.indexOf('escort') > -1 || bodyCheck.indexOf('adult') > -1 || bodyCheck.indexOf('erotic') > -1 || bodyCheck.indexOf('Nude') > -1 || bodyCheck.indexOf('NUDE') > -1 || bodyCheck.indexOf('Nudity') > -1 || bodyCheck.indexOf('Milf') > -1 || bodyCheck.indexOf('hostesses') > -1 || bodyCheck.indexOf('hostess') > -1 || bodyCheck.indexOf('Adult Film') > -1 || bodyCheck.indexOf('Milfs') > -1 ) {
+      console.log('inapropriate');
+      row++;
+      continue;
+    }
+    if( bodyCheck.indexOf('escort') > -1 || bodyCheck.indexOf('adult') > -1 || bodyCheck.indexOf('erotic') > -1 || bodyCheck.indexOf('Nude') > -1 || bodyCheck.indexOf('NUDE') > -1 || bodyCheck.indexOf('Nudity') > -1 || bodyCheck.indexOf('Milf') > -1 || bodyCheck.indexOf('hostesses') > -1 || bodyCheck.indexOf('hostess') > -1 || bodyCheck.indexOf('Adult Film') > -1 || bodyCheck.indexOf('Milfs') > -1 ) {
+      console.log('inapropriate');
+      row++;
+      continue;
+    }
+	    var entry = list[i][0];
+        var link = list[i][2];
+        var description = list[i][1];
+		
+        html += "<li id='testli'>\
+                   <div class='bordered collapsible-header'>\
+                     <span class='listitem' id='craigsSpan"+i+"' style='font-weight: bold;'>"+entry+"\
+                     </span>\
+                     <span class='listitem' id='craigsSpan"+i+"' style='font-weight: bold;'>\
+                       <a href="+link+" target='_blank'><i class='material-icons right'>open_in_new</i></a>\
+                       <i class='material-icons right' onclick='google.script.run.withSuccessHandler(initializeGlobals1).deleteListing("+row+")'>delete</i>\
+                     </span>\
+                   </div>\
+                   <div class='collapsible-body'><p>"+description+"</p></div></li>";
+                        console.log(row);
+                        row++;
+    }
+    div.innerHTML = html;
+}
+
+function consoleUpdate(message) {
+  console.log(message);  
+  //console.log(JSON.stringify(message));
+  //console.log("taco test consoleUpdate");
+}
+function initializeGlobals1() {
+  google.script.run.withSuccessHandler(updateCraigsListings).getFilterCraigsListings();
+};
+</script>
